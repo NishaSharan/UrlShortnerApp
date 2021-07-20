@@ -15,24 +15,44 @@ public class Url {
 	@Lob // this will be a long URL
 	private String originalUrl;
 	private String shortLink;
+	private int urlHitsCount;
+	
+	public int getUrlHitsCount() {
+		return urlHitsCount;
+	}
+
+	public void setUrlHitsCount(int urlHitsCount) {
+		this.urlHitsCount = urlHitsCount;
+		//this.urlHitsCount = urlHitsCount++;
+	}
+
 	//private String userName;
 	private LocalDateTime creationDate;
 	
 	public Url(){		
 	}
 	
-	public Url(long id, String originalUrl, String shortLink,String userName, LocalDateTime creationDate) {
-		super();
-		this.id = id;
-		this.originalUrl = originalUrl;
-		this.shortLink = shortLink;
-		this.creationDate = creationDate;
-		//this.userName = userName;
-	}
+//	public Url(long id, String originalUrl, String shortLink,String userName, LocalDateTime creationDate) {
+//		super();
+//		this.id = id;
+//		this.originalUrl = originalUrl;
+//		this.shortLink = shortLink;
+//		this.creationDate = creationDate;
+//		//this.userName = userName;
+//	}
 	
 	public long getId() {
 		return id;
 	}
+	public Url(long id, String originalUrl, String shortLink, int urlHitsCount, LocalDateTime creationDate) {
+		super();
+		this.id = id;
+		this.originalUrl = originalUrl;
+		this.shortLink = shortLink;
+		this.urlHitsCount = urlHitsCount+1;
+		this.creationDate = creationDate;
+	}
+
 	public void setId(long id) {
 		this.id = id;
 	}
@@ -57,7 +77,7 @@ public class Url {
 
 	@Override
 	public String toString() {
-		return "Url [id=" + id + ", originalUrl=" + originalUrl + ", shortLink=" + shortLink + ", creationDate=" + creationDate + "]";
+		return "Url [id=" + id + ", originalUrl=" + originalUrl + ", shortLink=" + shortLink +", urlHitsCount=" + urlHitsCount + ", creationDate=" + creationDate + "]";
 	}
 
 	

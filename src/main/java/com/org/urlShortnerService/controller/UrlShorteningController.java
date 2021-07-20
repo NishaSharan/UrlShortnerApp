@@ -36,6 +36,7 @@ public class UrlShorteningController {
 			UrlResponseDto urlResponseDto = new UrlResponseDto();
 			urlResponseDto.setOriginalUrl(urlToRet.getOriginalUrl());
 			urlResponseDto.setShortLink(urlToRet.getShortLink());
+			urlResponseDto.setUrlHitsCount(urlToRet.getUrlHitsCount());
 			return new ResponseEntity<UrlResponseDto>(urlResponseDto, HttpStatus.OK);
 		}
 		
@@ -57,13 +58,19 @@ public class UrlShorteningController {
 		
 		Url urlToRet = urlService.getEncodedUrl(shortLink);
 		
+		
 		if(urlToRet == null)
 		{
 			UrlErrorResponseDto urlErrorResponseDto = new UrlErrorResponseDto();
 			urlErrorResponseDto.setError("URL does not exist!");
 			urlErrorResponseDto.setStatus("400");
 			return new ResponseEntity<UrlErrorResponseDto>(urlErrorResponseDto,HttpStatus.OK);
-		}		
+		}	
+		
+		int URLHits = urlToRet.getUrlHitsCount();
+		System.out.println("---------URLHits before increment---------"+ URLHits);
+		urlToRet.setUrlHitsCount(URLHits++);
+		System.out.println("---------URLHits after increment---------"+ URLHits);
 		
 		response.sendRedirect(urlToRet.getOriginalUrl());
 		return null;
@@ -73,6 +80,7 @@ public class UrlShorteningController {
 	@DeleteMapping("/delete")
 	public void deleteShortUrl(@RequestBody UrlDto urlDto) {
 		String originalUrl = urlDto.getUrl();
+		
 		urlService.deleteShortLink(originalUrl);
 		
 	}	

@@ -28,6 +28,8 @@ public class UrlServiceImpl implements UrlService{
 			urlToPersist.setOriginalUrl(urlDto.getUrl());
 			urlToPersist.setShortLink(encodedUrl);
 			urlToPersist.setCreationDate(LocalDateTime.now());
+			urlToPersist.setUrlHitsCount(urlDto.getHit_count());
+			
 			Url urlToRet = persistShortLink(urlToPersist);
 			
 			if(urlToRet!=null)
